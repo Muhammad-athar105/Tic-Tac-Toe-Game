@@ -4,10 +4,16 @@
 }
 
 body {
-  background-color: #548687;
+  background-color: black;
   text-align: center;
 }
 
+h1{
+  padding-top: 3%;
+  color: #ffffc7;
+  font-size: 5vmin;
+  font-family: sans-serif;
+}
 .container {
   height: 70vh;
   justify-content: center;
@@ -73,7 +79,7 @@ body {
   display: none;
 }
 
-/* #msg-draw {
-  color: yellow;
-  font-size: 5vmin; 
-} */
+#msg-draw {
+  color: #ffffc7;
+  font-size: 5vmin;
+}

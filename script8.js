@@ -7,6 +7,7 @@ let msgDraw = document.querySelector("#msg-draw");
 
 
 let turnO = true;  // playerX. //PlayerO
+let count = 0;
 
 const winPattern = [
 
@@ -24,21 +25,21 @@ const winPattern = [
 
 const resetGame = () => {
   turnO = true;
+  count = 0;
   enableBoxes();
   msgContainer.classList.add("hide")
 
 }
 boxes.forEach((box) => {
   box.addEventListener('click', () => {
-    if (turnO) {
-      box.innerText = "O";
-      turnO = false;
-    } else {
-      box.innerText = "X";
-      turnO = true;
+
+    if (box.innerText === "") {
+      box.innerText = turnO ? "O" : "X";
+      turnO = !turnO;
+      count++;
+      box.disabled = true;
+      checkWinner();
     }
-    box.disabled = true;
-    checkWinner();
   });
 });
 
@@ -62,6 +63,12 @@ const showWinner = (winner) => {
   disableBoxes();
 }
 
+const showDrawMessage = () => {
+  msgDraw.innerText = `Match is draw try again ..`;
+  msgContainer.classList.remove("hide");
+  disableBoxes();
+};
+
 const checkWinner = () => {
   for (let pattern of winPattern) {
 
@@ -69,11 +76,13 @@ const checkWinner = () => {
     let position2Value = boxes[pattern[1]].innerText;
     let position3Value = boxes[pattern[2]].innerText;
 
-    if (position1Value != "" && position2Value != "" && position3Value != "") {
-      if (position1Value === position2Value && position2Value === position3Value) {
-        showWinner(position1Value);
-      }
+    if (position1Value != "" && position1Value === position2Value  &&  position2Value === position3Value) {
+      showWinner(position1Value);
+        return;
     }
+  }
+  if (count === 9) {
+    showDrawMessage();
   }
 };
 
